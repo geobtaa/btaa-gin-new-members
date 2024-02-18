@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTAA GIN Member Institutions</title>
+    <style>
+        /* Add any additional CSS styles here */
+        body, html {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .zoom-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+
+        .zoom-button {
+            cursor: pointer;
+            margin-bottom: 5px;
+            padding: 5px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: center;
+        }  
+    </style>
+</head>
+<body>
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+
+<script>
+    // Set up the dimensions of the SVG container
+    const width = window.innerWidth,
+        height = window.innerHeight;
+
+    // Create an SVG container
+    const svg = d3.create("svg")
+        .attr("viewBox", [0, -30, width, height]);
+
+    // Define a projection (you can choose a different projection as needed)
+    const projection = d3.geoMercator()
+        .center([-98.583333,39.833333]) // Center the map
+        .scale(2000)      // Zoom level
+        .translate([width / 2, height / 2]);
+
+    // Create a path generator
+    const path = d3.geoPath().projection(projection);
+
+    // Load GeoJSON files
+    Promise.all([
+        d3.json('data/all-states.json'),
+        d3.json('data/btaa-states.geojson'),
+        d3.json('data/na-lakes.json'),
+        d3.json('data/ocean.json'),
+        d3.json('data/btaa-universities.geojson')
+    ]).then(([allStates, uniStates, naLakes, ocean, unis]) => {
+
+        // Rewind with Turf
+        validUniStates = uniStates.features.map(d=>turf.rewind(d,{reverse:true}));
+        validLakes = naLakes.features.map(d=>turf.rewind(d,{reverse:true}));
+        validOcean = ocean.features.map(d=>turf.rewind(d,{reverse:true}));
+
+        // Create a group for all SVG elements
+        const svgGroup = svg.append("g");
+            
+        // Append a new SVG path element for each state
+        svgGroup.selectAll(".uni-state-path")
+            .data(validUniStates)
+            .enter().append("path")
+            .attr("fill", "#0088CE")
+            .attr("fill-opacity", 0.90)
+            .attr("stroke", "black")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-width", 1.0)
+            .attr("d", path);
+
+        // Append a new SVG path element for each state
+        svgGroup.selectAll(".state-path")
+            .data(allStates.features)
+            .enter().append("path")
+            .attr("fill", "none")
+            .attr("fill-opacity", 0.0)
+            .attr("stroke", "gray")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-width", 0.75)
+            .attr("d", path); 
+
+        // Append a new SVG path element for each state
+        svgGroup.selectAll(".na-lakes-path")
+            .data(validLakes)
+            .enter().append("path")
+            .attr("fill", "#0088CE")
+            .attr("fill-opacity", 0.20)
+            .attr("stroke", "gray")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-width", 0.0)
+            .attr("d", path);  
+
+        // Append a new SVG path element for each state
+        svgGroup.selectAll(".oceans-path")
+            .data(validOcean)
+            .enter().append("path")
+            .attr("fill", "#0088CE")
+            .attr("fill-opacity", 0.20)
+            .attr("stroke", "gray")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-width", 0.0)
+            .attr("d", path);
+
+        // Create a force simulation
+        const simulation = d3.forceSimulation(unis.features)
+            .force("x", d3.forceX(d => projection(d.geometry.coordinates)[0]).strength(0.1))
+            .force("y", d3.forceY(d => projection(d.geometry.coordinates)[1]).strength(0.1))
+            .force("collide", d3.forceCollide().radius(12).strength(1)) // Adjust radius and strength as needed
+            .stop(); // Stop the simulation to manually set initial positions
+        
+        // Run the simulation for a few ticks to resolve collisions and finalize positions
+        for (let i = 0; i < 300; ++i) simulation.tick();
+
+/* TESTING */
+        // Add zoom functionality to the group
+        const zoom = d3.zoom()
+            .scaleExtent([0, 8]) // Set the zoom scale limits
+            .on("zoom", zoomed);
+
+        svg.call(zoom);      
+
+        function zoomed(event) {
+            svgGroup.attr("transform", event.transform);
+        }
+
+        // Get the bounding box of the circles
+        const circleBounds = getBoundingBox(unis.features.map(d => [d.x, d.y]));
+
+        // Calculate the initial scale based on the bounding box of the circles
+        const initialScale = Math.min(width / (circleBounds[1][0] - circleBounds[0][0]), height / (circleBounds[1][1] - circleBounds[0][1])) * 0.9;
+
+        // Set the initial zoom level
+        svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));        
+/* TESTING */   
+
+        // Bind data and create circle elements
+        svgGroup.selectAll("circle")
+            .data(unis.features)
+            .enter().append("circle")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+            .attr("r", 12)
+            .attr("stroke", "#163b58")
+            .attr("stroke-width", 0.5)
+            .attr("fill-opacity", 0.75)
+            .attr("fill", "white") // Change the fill color as needed
+            // Define hover effects for circles
+            .on("mouseover", function() { 
+                d3.select(this)
+                    .attr("stroke", "yellow") // Change stroke to yellow
+                    .attr("stroke-width", 1.0); // Widen stroke
+            })
+            .on("mouseout", function() { 
+                d3.select(this)
+                    .attr("stroke", "#163b58") // Change stroke back to gray
+                    .attr("stroke-width", 0.5); // Change stroke back to 0.5
+            })
+            // For each state...
+            .each(function (d) {
+            // Set the tooltip content as follows...
+            tippy(this, {
+                content: `${d.properties.name}`,
+                allowHTML: true,
+                theme: "light",
+            });
+            });  
+
+        // Bind data and create text elements associated with circles
+        svgGroup.selectAll("text")
+            .data(unis.features)
+            .enter().append("text")
+            .attr("x", d => d.x)
+            .attr("y", d => d.y)
+            .text(d => d.properties.id)
+            .attr("text-anchor", "middle")
+            .attr("dy", 5) // Adjust the vertical position of the label as needed
+            .style("fill", "black") // Change the text color as needed
+            .style("pointer-events", "none"); // Prevent the text from triggering pointer events   
+
+        // Append the SVG to the body
+        document.body.appendChild(svg.node());
+
+/* TESTING */
+        // Function to get the bounding box of an array of points
+        function getBoundingBox(points) {
+            const bounds = [[Infinity, Infinity], [-Infinity, -Infinity]];
+            points.forEach(([x, y]) => {
+                bounds[0][0] = Math.min(bounds[0][0], x);
+                bounds[0][1] = Math.min(bounds[0][1], y);
+                bounds[1][0] = Math.max(bounds[1][0], x);
+                bounds[1][1] = Math.max(bounds[1][1], y);
+            });
+            return bounds;
+        }
+
+        // Prevent the default behavior of mouse and touch events
+        svg.on("mousedown.zoom", null);
+        svg.on("wheel.zoom", null);
+        svg.on("touchstart.zoom", null);
+        svg.on("touchmove.zoom", null);
+/* TESTING */
+
+    });
+</script>
+
+</body>
+</html>
