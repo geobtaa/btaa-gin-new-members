@@ -20,6 +20,5 @@
 { "type": "Feature", "properties": { "id": 15, "name": "University of Oregon", "lng": -123.0758, "lat": 44.0443 }, "geometry": { "type": "Point", "coordinates": [ -123.0758, 44.0443 ] } },
 { "type": "Feature", "properties": { "id": 16, "name": "University of Washington", "lng": -122.308, "lat": 47.6541 }, "geometry": { "type": "Point", "coordinates": [ -122.308, 47.6541 ] } }
 { "type": "Feature", "properties": { "id": 17, "name": "University of Wisconsin–Madison", "lng": -89.41736, "lat": 43.0766 }, "geometry": { "type": "Point", "coordinates": [ -89.41736, 43.0766 ] } },
-
 ]
 }
