@@ -5,20 +5,21 @@
 "features": [
 { "type": "Feature", "properties": { "id": 1, "name": "Indiana University Bloomington", "lng": -86.52788, "lat": 39.16825 }, "geometry": { "type": "Point", "coordinates": [ -86.52788, 39.16825 ] } },
 { "type": "Feature", "properties": { "id": 2, "name": "Michigan State University", "lng": -84.48499, "lat": 42.7248 }, "geometry": { "type": "Point", "coordinates": [ -84.48499, 42.7248 ] } },
-{ "type": "Feature", "properties": { "id": 3, "name": "Ohio State University", "lng": -83.03998, "lat": 40.00667 }, "geometry": { "type": "Point", "coordinates": [ -83.03998, 40.00667 ] } },
-{ "type": "Feature", "properties": { "id": 4, "name": "Pennsylvania State University", "lng": -77.86248, "lat": 40.79822 }, "geometry": { "type": "Point", "coordinates": [ -77.86248, 40.79822 ] } },
-{ "type": "Feature", "properties": { "id": 5, "name": "Purdue University", "lng": -86.92596, "lat": 40.42371 }, "geometry": { "type": "Point", "coordinates": [ -86.92596, 40.42371 ] } },
-{ "type": "Feature", "properties": { "id": 6, "name": "Rutgers University–New Brunswick", "lng": -74.44999, "lat": 40.50084 }, "geometry": { "type": "Point", "coordinates": [ -74.44999, 40.50084 ] } },
-{ "type": "Feature", "properties": { "id": 7, "name": "University of Chicago", "lng": -87.60089, "lat": 41.78963 }, "geometry": { "type": "Point", "coordinates": [ -87.60089, 41.78963 ] } },
-{ "type": "Feature", "properties": { "id": 8, "name": "University of Illinois at Urbana-Champaign", "lng": -88.23203, "lat": 40.10196 }, "geometry": { "type": "Point", "coordinates": [ -88.23203, 40.10196 ] } },
-{ "type": "Feature", "properties": { "id": 9, "name": "University of Iowa", "lng": -91.55755, "lat": 41.66271 }, "geometry": { "type": "Point", "coordinates": [ -91.55755, 41.66271 ] } },
-{ "type": "Feature", "properties": { "id": 10, "name": "University of Maryland", "lng": -76.94513, "lat": 38.98692 }, "geometry": { "type": "Point", "coordinates": [ -76.94513, 38.98692 ] } },
-{ "type": "Feature", "properties": { "id": 11, "name": "University of Michigan", "lng": -83.73821, "lat": 42.27715 }, "geometry": { "type": "Point", "coordinates": [ -83.73821, 42.27715 ] } },
-{ "type": "Feature", "properties": { "id": 12, "name": "University of Minnesota", "lng": -93.23668, "lat": 44.97368 }, "geometry": { "type": "Point", "coordinates": [ -93.23668, 44.97368 ] } },
-{ "type": "Feature", "properties": { "id": 13, "name": "University of Nebraska–Lincoln", "lng": -96.70305, "lat": 40.8202 }, "geometry": { "type": "Point", "coordinates": [ -96.70305, 40.8202 ] } },
-{ "type": "Feature", "properties": { "id": 14, "name": "University of Wisconsin–Madison", "lng": -89.41736, "lat": 43.0766 }, "geometry": { "type": "Point", "coordinates": [ -89.41736, 43.0766 ] } },
-{ "type": "Feature", "properties": { "id": 15, "name": "Northwestern University", "lng": -87.67945, "lat": 42.05653 }, "geometry": { "type": "Point", "coordinates": [ -87.67945, 42.05653 ] } },
-{ "type": "Feature", "properties": { "id": 16, "name": "University of Oregon", "lng": -123.0758, "lat": 44.0443 }, "geometry": { "type": "Point", "coordinates": [ -123.0758, 44.0443 ] } },
-{ "type": "Feature", "properties": { "id": 17, "name": "University of Washington", "lng": -122.308, "lat": 47.6541 }, "geometry": { "type": "Point", "coordinates": [ -122.308, 47.6541 ] } }
+{ "type": "Feature", "properties": { "id": 3, "name": "Northwestern University", "lng": -87.67945, "lat": 42.05653 }, "geometry": { "type": "Point", "coordinates": [ -87.67945, 42.05653 ] } },
+{ "type": "Feature", "properties": { "id": 4, "name": "Ohio State University", "lng": -83.03998, "lat": 40.00667 }, "geometry": { "type": "Point", "coordinates": [ -83.03998, 40.00667 ] } },
+{ "type": "Feature", "properties": { "id": 5, "name": "Pennsylvania State University", "lng": -77.86248, "lat": 40.79822 }, "geometry": { "type": "Point", "coordinates": [ -77.86248, 40.79822 ] } },
+{ "type": "Feature", "properties": { "id": 6, "name": "Purdue University", "lng": -86.92596, "lat": 40.42371 }, "geometry": { "type": "Point", "coordinates": [ -86.92596, 40.42371 ] } },
+{ "type": "Feature", "properties": { "id": 7, "name": "Rutgers University–New Brunswick", "lng": -74.44999, "lat": 40.50084 }, "geometry": { "type": "Point", "coordinates": [ -74.44999, 40.50084 ] } },
+{ "type": "Feature", "properties": { "id": 8, "name": "University of Chicago", "lng": -87.60089, "lat": 41.78963 }, "geometry": { "type": "Point", "coordinates": [ -87.60089, 41.78963 ] } },
+{ "type": "Feature", "properties": { "id": 9, "name": "University of Illinois at Urbana-Champaign", "lng": -88.23203, "lat": 40.10196 }, "geometry": { "type": "Point", "coordinates": [ -88.23203, 40.10196 ] } },
+{ "type": "Feature", "properties": { "id": 10, "name": "University of Iowa", "lng": -91.55755, "lat": 41.66271 }, "geometry": { "type": "Point", "coordinates": [ -91.55755, 41.66271 ] } },
+{ "type": "Feature", "properties": { "id": 11, "name": "University of Maryland", "lng": -76.94513, "lat": 38.98692 }, "geometry": { "type": "Point", "coordinates": [ -76.94513, 38.98692 ] } },
+{ "type": "Feature", "properties": { "id": 12, "name": "University of Michigan", "lng": -83.73821, "lat": 42.27715 }, "geometry": { "type": "Point", "coordinates": [ -83.73821, 42.27715 ] } },
+{ "type": "Feature", "properties": { "id": 13, "name": "University of Minnesota", "lng": -93.23668, "lat": 44.97368 }, "geometry": { "type": "Point", "coordinates": [ -93.23668, 44.97368 ] } },
+{ "type": "Feature", "properties": { "id": 14, "name": "University of Nebraska–Lincoln", "lng": -96.70305, "lat": 40.8202 }, "geometry": { "type": "Point", "coordinates": [ -96.70305, 40.8202 ] } },
+{ "type": "Feature", "properties": { "id": 15, "name": "University of Oregon", "lng": -123.0758, "lat": 44.0443 }, "geometry": { "type": "Point", "coordinates": [ -123.0758, 44.0443 ] } },
+{ "type": "Feature", "properties": { "id": 16, "name": "University of Washington", "lng": -122.308, "lat": 47.6541 }, "geometry": { "type": "Point", "coordinates": [ -122.308, 47.6541 ] } }
+{ "type": "Feature", "properties": { "id": 17, "name": "University of Wisconsin–Madison", "lng": -89.41736, "lat": 43.0766 }, "geometry": { "type": "Point", "coordinates": [ -89.41736, 43.0766 ] } },
+
 ]
 }
